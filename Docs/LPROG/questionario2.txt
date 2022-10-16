@@ -1,0 +1,190 @@
+ID:(049uGR)
+Date: 20-06-2022 - 28-06-2022
+Criteria: Age > 18
+Survey Questionnaire - Tech Questionnaire
+
+
+Welcome Message - Hello This questionnaire aims to determine how well informed our customers are about the products they buy so that we can further improve our selling techniques. It takes approximately 10 minutes, and we would gladly appreciate it if you could dedicate some of your time to help us grow as a company. Plus, you might have a chance to earn a discount code at the end. Thank you very much for your time and support!
+
+List of sections:
+1-About You
+2-Smartphones
+3-Gaming
+4-Why you buy our products
+5-Staff Feedback
+
+[Sections]
+
+Section- About You
+
+Question-1
+*What is your age? -Type= Single-choice
+Obligatoriness:m
+Answers:
+-18 to 24
+-25 to 49
+-49 to 65
+-65 or more
+
+
+Question-2
+(Please type your country)
+*Where are you from? -Type= Free-text
+Obligatoriness:m
+
+
+Question-3
+*What is your weight? -Type= Numeric
+Obligatoriness:o
+
+Question-4
+*What is your height? -Type= Numeric
+Obligatoriness:o
+
+Section- Smartphones
+
+Question-1
+*What brands do you tend to go for when buying a new smartphone? -Type= Multiple-choice
+Obligatoriness:m
+Answers:
+-Apple
+-Samsung
+-Xiaomi
+-Huawei
+-OnePlus
+-Other
+
+Question-2
+(Please select the options which favour your opinion the most)
+*Which of the following attributes do you value the most when buying a new smartphone? -Type= Multiple-choice
+Obligatoriness:m
+Answers:
+-Battery Life
+-Popularity
+-Fast processing
+-Good camera quality
+
+
+Question-3
+*Do you tend to buy protective accessories for your smartphone for instance case, screen protector? -Type= Yes/No
+Obligatoriness:m
+
+Question-4
+*When you buy a new smartphone, do you tend to sell your old one? -Type= Yes/No
+Obligatoriness:o
+
+Section- Gaming
+
+Question-1
+*How many hours a day do you spend gaming -Type= Multiple-choice
+Obligatoriness:m
+Answers:
+-1 to 2 hours
+-3 to 4 hours
+-5 hours or more
+
+Question-2
+*Do you think having better technological equipment gives you an edge on competing in online games? -Type= Yes/No
+Obligatoriness:m
+
+Question-3
+*Do you find that gaming has somehow ever persuaded you into buying better hardware equipment? -Type= Yes/No
+Obligatoriness:m
+
+Question-4
+(Please select the option which suits your opinion the best)
+*What do you mostly enjoy in a game? -Type= Multiple-choice
+Obligatoriness:o
+Answers:
+-Graphics
+-Gameplay
+-Competitiveness
+-Immersion
+-Other
+
+Question-5
+(Please select the option which suits your opinion the best)
+*Do you fear gaming may be having a negative impact on your health? -Type= Yes/No
+Obligatoriness:c(Section 3|Question 1|Answer:5 hours or more)
+
+Section- Why you buy our products
+
+Question-1
+(Please select the options which favour your opinion the most)
+*Why did you choose our store to buy your products instead of other? -Type= Multiple-choice
+Obligatoriness:m
+Answers:
+-Better prices
+-Advertising
+-Better location
+-Better attendance
+-Other
+
+Question-2
+(Please select the options which favour your opinion the most)
+*How did you find out about our store? -Type= Multiple-choice
+Obligatoriness:m
+Answers:
+-Through family or a friend
+-TV
+-Street advertising
+-Social Network
+-Other
+
+Question-3
+*How well do you find our prices fair in comparison to our competitors? -Type= Scaling
+Obligatoriness:o
+Answers:
+-Too expensive
+-Expensive
+-Competitive
+-Good Pricing
+-Awesome Deals
+
+
+Question-4
+*How well do you think the presentation of our products is easy to follow and well organized? -Type= Scaling
+Obligatoriness:m
+Answers:
+-Really Bad
+-Bad
+-Average
+-Above Average
+-Outstanding
+
+Section- Staff Feedback
+
+Question-1
+*Have you ever had an interaction with any of our staff members? -Type= Yes/No
+Obligatoriness:m
+
+Question-2
+*How satisfied were you with our staff member s sympathy? -Type= Scaling
+Obligatoriness:c(Section 5|Question 1|Answer:Yes)
+Answers:
+-Disappointed
+-Somewhat Satisfied
+-Satisfied
+-Very Satisfied
+-Extremely Pleased
+
+Question-3
+*How satisfied were you with the fact that our staff member knew what he was talking about? -Type= Scaling
+Obligatoriness:c(Section 5|Question 1|Answer:Yes)
+Answers:
+-Disappointed
+-Somewhat Satisfied
+-Satisfied
+-Very Satisfied
+-Extremely Pleased
+
+Question-4
+*Did you buy any product because a staff member helped you and convinced you that was the right product? -Type= Yes/No
+Obligatoriness:c(Section 5|Question 1|Answer:Yes)
+
+Question-5
+*Is there anywhere we can improve when it comes to our staffs skills in approaching a client? -Type= Free-text
+Obligatoriness:c(Section 5|Question 1|Answer:No)
+
+End
+Thank you for your time!

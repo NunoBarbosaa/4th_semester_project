@@ -1,0 +1,55 @@
+@startuml
+
+autonumber
+actor "Warehouse Employee" as WE
+participant DashboardUI as UI <<presentation>>
+participant DashBoardController as Controller <<application>>
+participant AgvOrderAssignmentService as Service1 <<application>>
+participant WarehouseContainer as Warehouse <<infrastructure>>
+participant HttpMessage as Message <<HTTPServer>>
+
+activate WE
+WE -> UI : Starts the process to open a web dashboard presenting\n the current status of the AGVs as well as their position\n in the warehouse layout and keeps updated automatically\n (e.g.: at each minute).
+activate UI
+UI -> Controller: create
+activate Controller
+loop while warehouse employee wants to see dashboard
+UI -> Controller : startsCommunication()
+Controller -> Service1 : Starts communication
+activate Service1
+Service1 -> Service1 : Sends commtest message.
+activate Service1
+deactivate Service1
+Service1 --> Controller : Return if acknowledge message is retrieved.
+deactivate Service1
+Controller --> UI : Return the success of communication.
+UI -> Controller : sendDataWarehouse()
+Controller -> Warehouse : activateWarehouse()
+activate Warehouse
+Warehouse --> Controller : warehouse
+deactivate Warehouse
+Controller -> Message : send request with dimensions of \nthe warehouse, docks and aisles
+activate Message
+Message --> Controller : Success of the request
+deactivate Message
+loop while each minute
+Controller -> Service1 : getAGVS()
+activate Service1
+Service1 --> Controller : listAgvDTO
+deactivate Service1
+Controller -> Message : send request with agvs
+activate Message
+Message --> Controller : Success of the request
+deactivate Message
+end loop
+WE -> UI : wants to close dashboard
+UI -> Controller : disconnect()
+Controller -> Service1 : disconnect()
+activate Service1
+Service1 --> Controller : Return if acknowledge message is sent.
+deactivate Service1
+Controller --> UI : success or no success.
+deactivate Controller
+UI -> WE : Success.
+
+@enduml

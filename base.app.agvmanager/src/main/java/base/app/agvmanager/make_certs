@@ -1,0 +1,18 @@
+#!/bin/bash
+STOREPASS="12345678"
+for ENT in server_agvmanager client_backoffice client_digitalTwin; do
+ rm -f ${ENT}.jks ${ENT}.pem
+ echo -e "${ENT}\nDEI\nISEP\nPORTO\nPORTO\nPT\nyes" | keytool -genkey -v -alias ${ENT} -keyalg RSA -keysize 2048 \
+	-validity 365 -keystore ${ENT}.jks -storepass ${STOREPASS}
+ keytool -exportcert -alias ${ENT} -keystore ${ENT}.jks -storepass ${STOREPASS} -rfc -file ${ENT}.pem
+done
+####
+echo "Creating trust relations"
+for ENT in client_backoffice client_digitalTwin; do
+ echo "yes"|keytool -import -alias ${ENT} -keystore server_agvmanager.jks -file ${ENT}.pem -storepass ${STOREPASS}
+ echo "yes"|keytool -import -alias server_agvmanager -keystore ${ENT}.jks -file server_agvmanager.pem -storepass ${STOREPASS}
+done
+echo "############################################################################"
+keytool -list -keystore server_agvmanager.jks -storepass ${STOREPASS}
+
+#######

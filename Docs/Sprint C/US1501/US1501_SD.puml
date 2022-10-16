@@ -1,0 +1,61 @@
+@startuml
+
+autonumber
+actor "Costumer" as WE
+participant AddProductToShoppingCartUI as UI <<presentation>>
+participant ClientOrderController as Controller <<application>>
+participant OrderServer as ORD <<Server>>
+
+activate WE
+WE -> UI : Logs in the system
+activate UI
+UI -> Controller: sends user email
+activate Controller
+Controller -> ORD : starts communication with server
+activate ORD
+ORD--> Controller : informs connection success
+deactivate ORD
+Controller --> UI: informs success
+UI-> WE: Gives options
+WE-> UI: inputs option
+UI-> Controller : getCategories()
+Controller -> ORD: handleCategories()
+activate ORD
+ORD--> Controller: returns categories
+deactivate ORD
+Controller --> UI: returns String of Categories
+UI-> WE: splits into list and shows categories
+UI-> WE: asks for any filter if wanted
+WE->UI: inputs filter
+UI-> Controller : getProductsFiltered()
+Controller -> ORD : handleProducts()
+activate ORD
+ORD--> Controller: returns string of Products
+deactivate ORD
+Controller --> UI : returns String of Products
+UI -> WE: splits into list and shows products
+WE-> UI: inputs option to add to shopping cart and quantity
+UI->Controller: sendProduct()
+Controller -> ORD: sendProduct()
+activate ORD
+ORD--> Controller: informs add successfull
+deactivate ORD
+Controller--> UI: informs add successfull
+UI--> WE: informs add successfull
+UI-> Controller: getShoppingCart()
+Controller-> ORD: getShoppingCart()
+activate ORD
+ORD-->Controller: returns Shopping Cart
+deactivate ORD
+Controller--> UI: returns list of products in shopping cart
+UI-> WE: splits into list and shows shopping Cart
+UI->WE: asks if costumer wants to remove any item
+WE-> UI: inputs option
+UI-> Controller: removeProduct()
+Controller-> ORD: removeProduct()
+activate ORD
+ORD--> Controller: informs removal successfull
+deactivate ORD
+Controller --> UI:informs removal successfull
+UI--> WE: informs removal successfull
+@enduml

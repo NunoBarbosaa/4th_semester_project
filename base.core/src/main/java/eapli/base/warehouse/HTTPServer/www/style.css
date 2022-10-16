@@ -1,0 +1,56 @@
+body{
+    background-color: white;
+}
+
+h1{
+    text-align: center;
+    color: #22DBA8;
+}
+
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid;
+    border-collapse: collapse;
+}
+
+
+.td{
+    color: #C0C0C0;
+    width: 40px;
+    height: 40px;
+}
+
+.dock{
+    width: 40px;
+    height: 40px;
+    background-color: #FFEA00;
+    text-align: center;
+}
+
+.aisle{
+    width: 40px;
+    height: 40px;
+    background-color: #D3D3D3;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.end-sub-aisle{
+    border-right: 1px solid black;
+}
+
+.with-bottom-border{
+    border-bottom: 1px solid black;
+}
+
+.with-end-sub-aisle-and-bottom-border{
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}

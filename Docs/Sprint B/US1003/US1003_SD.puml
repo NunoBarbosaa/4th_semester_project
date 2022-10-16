@@ -1,0 +1,82 @@
+@startuml
+
+autonumber
+actor "Sales Clerk" as SC
+participant RegisterCustomerUI as UI <<presentation>>
+participant RegisterCustomerController as Controller <<application>>
+participant AddressDTO as DTO1 <<dto>>
+participant CustomerDTO as DTO2 <<dto>>
+participant CustomerBuilder as Builder <<builder>>
+participant "customer:Customer" as Domain <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database CustomerRepository as Repository <<repository>>
+
+activate SC
+SC -> UI : Starts the process to register a new customer.
+activate UI
+UI -> Controller: create
+UI --> SC : Asks the required information (firstNames, lastNames, \nVAT, emailAddress, diallingCode, phoneNumber)
+SC -> UI : Inputs the data
+alt Sales Clerk wants to add addresses to the customer
+loop while Sales Clerk add more addresses to the customer
+UI --> SC : Asks the postalCode, street, \ndoorNumber, city and country
+SC -> UI : Inputs the data
+UI -> DTO1 : create(postalCode, street, doorNumber, city and country)
+DTO1 -> UI : addressDTO
+end
+end
+alt Sales Clerk wants to add the \nbirthdate to the customer
+UI --> SC : Asks the birthdate
+SC -> UI : Inputs the birthdate
+end
+alt Sales Clerk wants to add the gender to the customer
+UI --> SC : Show list of genders
+SC -> UI : Inputs the gender
+end
+UI -> DTO2 : create(firstNames, lastNames, vat, email, diallingCode, \nphoneNumber, addressList, birthDate, gender)
+DTO2 -> UI : customerDTO
+UI -> Controller: registerCustomer(customerDTO)
+activate Controller
+Controller -> Builder : create
+note right
+Builder creates a Customer in a valid state
+end note
+Controller -> Builder : setFirstNames(firstNames)
+Controller -> Builder : setLastNames(lastNames)
+Controller -> Builder : setVAT(vat)
+Controller -> Builder : setEmail(email)
+Controller -> Builder : setPhoneNumber(diallingCode, phoneNumber)
+Controller -> Builder : setAddressList(addressDTOList)
+Controller -> Builder : setBirthDate(day, month, year)
+Controller -> Builder : setGender(gender)
+Controller -> Builder : build(customerBuilder)
+activate Builder
+Builder -> Builder : buildOrThrow
+activate Builder
+Builder -> Domain : create(firstNames, lastNames, vat, \nemailAddress, phoneNumber, addressList, \nbirthDate, gender)
+Builder -> Controller : customer
+deactivate Builder
+deactivate Builder
+Controller -> Persistence: repositories()
+activate Persistence
+note right of Persistence: repository in memory or JPA
+Persistence -> Factory: create
+Persistence -> Controller: factory
+deactivate Persistence
+Controller -> Factory: customers()
+activate Factory
+Factory -> Repository: create
+Factory -> Controller: customerRepository
+deactivate Factory
+Controller -> Controller : saveCustomer(customer)
+activate Controller
+Controller -> Repository: save(customer)
+deactivate Controller
+Controller -> UI: customer
+deactivate Controller
+UI --> SC : Informs the success of the operation \nand show the information of the customer
+deactivate UI
+deactivate SC
+
+@enduml

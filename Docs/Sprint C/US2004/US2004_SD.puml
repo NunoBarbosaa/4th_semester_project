@@ -1,0 +1,43 @@
+@startuml
+
+autonumber
+actor "Warehouse Employee" as WE
+participant AlreadyPreparedByAgvUI as UI <<presentation>>
+participant AlreadyPreparedOrdersByAGVController as Controller <<application>>
+participant Order as ORD
+database OrderRepository as Repository <<repository>>
+
+activate WE
+WE -> UI : Starts the process to access the list of orders \n that are ready to be packed.
+activate UI
+UI -> Controller: asks for list of prepared orders
+activate Controller
+
+Controller ->Repository : Starts communication to database (order READY_TO_BE_PACKED state list)
+activate Repository
+Repository -> Controller : returns list
+deactivate Repository
+Controller -> UI: Shows list as options
+deactivate Controller
+loop this can be done for as many orders as the warehouse employee needs
+WE -> UI: Chooses order to update state
+UI -> Controller: Sends info (option number)
+activate Controller
+Controller -> ORD: updates order state to READY_TO_BE_DELIVERED
+activate ORD
+deactivate ORD
+Controller -> Repository : saves update
+activate Repository
+
+deactivate Repository
+
+Controller -> UI: removes option from list and shows updated list
+deactivate Controller
+end loop
+UI->Controller: Ends operation
+activate Controller
+Controller -->UI: informs operation success.
+deactivate Controller
+UI --> WE : informs operation success.
+
+@enduml

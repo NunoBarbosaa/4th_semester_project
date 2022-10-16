@@ -1,0 +1,93 @@
+@startuml
+
+autonumber
+actor "Warehouse Employee" as WE
+participant PrepareOrderByAGVUI as UI <<presentation>>
+participant PrepareOrderByAGVController as Controller <<application>>
+participant AgvOrderAssignmentService as Service1 <<application>>
+participant OrderService as Service2 <<application>>
+participant OrderDTO as DTO <<dto>>
+database OrderRepository as Repository <<repository>>
+participant OrderPrinter as Printer <<presentation>>
+
+activate WE
+WE -> UI : Starts the process to access the list of orders \nthat need to be prepared by an AGV and be able\n to ask/force any of those orders to be immediately prepared\n by an AGV available.
+activate UI
+UI -> Controller: create
+activate Controller
+loop this can be done for as many orders as the warehouse employee wants
+UI -> Controller : startsCommunication()
+Controller -> Service1 : Starts communication
+activate Service1
+Service1 -> Service1 : Sends commtest message.
+activate Service1
+deactivate Service1
+deactivate Service1
+Service1 --> Controller : Return if acknowledge message is retrieved.
+Controller --> UI : success or no success
+UI -> Controller : getOrders()
+Controller -> Service1 : getOrders()
+activate Service1
+Service1 -> Service2 : getOrders(type)
+activate Service2
+Service2 -> Repository : findUnpreparedOrders()
+activate Repository
+Repository --> Service2 : orders
+deactivate Repository
+loop for each order
+Service2 -> DTO : order
+activate DTO
+DTO -> Service2 : orderDTO
+deactivate DTO
+end loop
+Service2 --> Service1 : listOrdersDTO
+deactivate Service2
+Service1 -> Controller : listOrdersDTO
+deactivate Service1
+Controller --> UI : listOrdersDTO
+UI -> Controller : getAGVS()
+Controller -> Service1 : getAGVS()
+activate Service1
+Service1 --> Controller : listAgvDTO
+deactivate Service1
+Controller --> UI : listAgvDTO
+loop while Order ID is invalid
+UI -> Printer : print(listOrdersDTO)
+activate Printer
+Printer --> UI : Shows the Orders that need\n to be prepared
+deactivate Printer
+Controller --> UI : Asks for ID.
+UI -> Controller : Inputs ID of the Order.
+Controller -> Service1 : checkIfOrderIsValid(id)
+activate Service1
+Service1 -> Repository : findByOrderId(id)
+activate Repository
+Repository --> Service1 : return order if exists
+deactivate Repository
+Service1 --> Controller : return true or false
+deactivate Service1
+Controller --> UI : return if Order ID is valid
+end loop
+loop while AGV ID is invalid
+Controller --> UI : Shows the AGVs and asks for ID.
+UI -> Controller : Inputs ID of the AGV.
+UI -> UI : checkIfAgvIsValid(agvID, listAgvDTO)
+activate UI
+deactivate UI
+end loop
+Controller -> Service1 : send(orderID, agvID)
+activate Service1
+Service1 --> Controller : Return if acknowledge message is retrieved.
+deactivate Service1
+Controller --> UI : Success of the operation.
+UI -> Controller : disconnect()
+Controller -> Service1 : disconnect()
+activate Service1
+Service1 --> Controller : Return if acknowledge message is sent.
+deactivate Service1
+Controller --> UI : success or no success.
+end loop
+deactivate Controller
+UI -> WE : Success.
+
+@enduml

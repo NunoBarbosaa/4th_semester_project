@@ -1,0 +1,22 @@
+@startuml
+
+autonumber
+participant StatisticReportUI as UI <<presentation>>
+participant StatisticReportController as Controller <<application>>
+database SurveyAnswersRepository as SurveyAnswersRepository <<repository>>
+
+UI -> Controller : getPercentageAnswerQuestion\n(idSurvey, idSection, questionDTO, answer)
+activate Controller
+Controller -> SurveyAnswersRepository : numberAnswerQuestion(surveyID, sectionID, questionID, answer)
+activate SurveyAnswersRepository
+SurveyAnswersRepository -> Controller : number
+deactivate SurveyAnswersRepository
+Controller -> SurveyAnswersRepository : totalAnswersQuestion(surveyID, sectionID, questionID)
+activate SurveyAnswersRepository
+SurveyAnswersRepository --> Controller : number
+deactivate SurveyAnswersRepository
+Controller --> UI : percentage
+deactivate Controller
+deactivate UI
+
+@enduml

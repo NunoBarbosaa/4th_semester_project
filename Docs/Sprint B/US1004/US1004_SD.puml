@@ -1,0 +1,72 @@
+@startuml
+
+autonumber
+actor "Sales Clerk" as SC
+participant AddOrderUI as UI <<presentation>>
+participant RegisterCustomerUI as UI2 <<presentation>>
+participant ViewProductsCatalogUI as UI3 <<presentation>>
+participant AddOrderController as Controller <<application>>
+participant AddOrderItemController as Controller1 <<application>>
+participant ViewProductsCatalogController as Controller2 <<application>>
+participant ListCustomerInformationController as Controller3 <<application>>
+participant AddressDTO as DTO1 <<dto>>
+participant CustomerDTO as DTO2 <<dto>>
+participant OrderBuilder as Builder <<builder>>
+participant "order:Order" as Domain <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database OrderRepository as Repository <<repository>>
+
+activate SC
+SC -> UI : Starts the process to associate a order to a customer.
+activate UI
+UI -> Controller: create
+loop while vat invalid
+UI --> SC : Asks the VAT of the customer
+SC -> UI : Inputs the VAT
+UI -> Controller : addOrder(vat)
+activate Controller
+alt if vat valid
+Controller -> Builder : create(customer, date, status)
+activate Builder
+Builder -> Builder : build()
+activate Builder
+deactivate Builder
+Builder -> Controller : order
+deactivate Builder
+Controller -> Repository : order
+Repository -> Controller : order
+end
+alt if VAT is invalid and Sales Clerk want to register Customer
+UI -> UI2
+UI2 -> UI : success
+end
+end loop
+alt if Sales want to see Catalog
+UI -> UI3
+end
+loop while Sales Clerk wants to add mroe products
+loop while Internal Code of the Product is not valid
+UI -> SC : Asks for internal code.
+SC -> UI : Inputs the internal code.
+UI -> Controller2 : getProductsFilter(filter, internalCode)
+end loop
+UI -> SC : Asks for quantity.
+SC -> UI : Inputs the quantity.
+UI -> Controller1 : addOrderItem(order.identity(), product, quantity)
+end loop
+UI -> Controller3 : customerAddresses(vat)
+Controller3 -> UI : addressDTOList
+UI -> SC : Shows the shipment methods.
+SC -> UI : Choose one.
+UI -> SC : Shows the payment methods.
+SC -> UI : Choose one.
+UI -> Controller : addOrder(order, billingAddress, deliveringAddress,\nshipmentMethod, paymentMethod)
+Controller -> Domain : changeBillingAddress()
+Controller -> Domain : changeDeliveringAddress()
+Controller -> Domain : changeShipmentAddress()
+Controller -> Domain : changePaymentMethodAddress()
+Controller -> Repository : save(order)
+Controller -> UI : success
+UI -> SC : success
+@enduml

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence">
+  <persistence-unit name="eapli.base">
+    <!--
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    -->
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <class>eapli.framework.infrastructure.authz.domain.model.SystemUser</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
+    <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
+    <class>eapli.base.clientusermanagement.domain.ClientUser</class>
+    <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
+    <class>eapli.base.productmanagement.domain.Product</class>
+    <class>eapli.base.customermanagement.domain.Customer</class>
+    <class>eapli.base.categorymanagement.domain.Category</class>
+    <class>eapli.base.warehouse.domain.Agv</class>
+    <class>eapli.base.ordermanagement.domain.Order</class>
+    <class>eapli.base.ordermanagement.domain.OrderItem</class>
+    <class>eapli.base.shoppingcart.domain.ShoppingCart</class>
+    <class>eapli.base.shoppingcart.domain.ShoppingCartItem</class>
+    <class>eapli.base.surveys.domain.Survey</class>
+    <class>eapli.base.surveys.domain.Section</class>
+    <class>eapli.base.surveys.domain.Question</class>
+    <class>eapli.base.surveys.domain.SurveyTargetCustomer</class>
+    <class>eapli.base.surveys.domain.SurveyAnswer</class>
+    <properties>
+      <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->
+      <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://vsgate-s2.dei.isep.ipp.pt:10160/db_dl_g1"/>
+
+      <property name="javax.persistence.jdbc.user" value="g1"/>
+      <property name="javax.persistence.jdbc.password" value="admin"/>
+      <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="hibernate.archive.autodetection" value="class"/>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <!-- <property name="eclipselink.logging.level" value="FINE"/> -->
+      <!-- <property name = "hibernate.show_sql" value = "true" /> -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+    </properties>
+  </persistence-unit>
+</persistence>

@@ -1,0 +1,163 @@
+ID:(323253)
+Date: 20-06-2022 - 28-06-2022
+Criteria: Bought- (VGC0001)(VGC0002)20-05-2022 - 28-06-2022
+[AND]
+Age[18-40]
+
+Survey Questionnaire - Food questionnaire
+
+Welcome Message - Hello This questionnaire aims to determine how well informed our customers are about the products they buy so that we can further improve our selling techniques. It takes approximately 10 minutes, and we would gladly appreciate it if you could dedicate some of your time to help us grow as a company. Plus, you might have a chance to earn a discount code at the end. Thank you very much for your time and support!
+
+List of sections:
+1-About You
+2-Nutritional information
+3-Healthy Food
+4-Why You Buy Our Products
+5-Staff Feedback
+
+
+[Sections]
+
+Section- About You
+(This section is composed by basic, default questions.)
+
+Question-1
+*What is your age? -Type= Free-text
+Obligatoriness:m
+
+Question-2
+(Please type your country)
+*Where are you from? -Type= Free-text
+Obligatoriness:m
+
+Question-3
+*What is your weight? -Type= Free-text
+Obligatoriness:o
+Question-4
+*What is your height? -Type= Numeric
+Obligatoriness:o
+
+Section- Nutritional information
+
+Question-1
+*Whenever you buy one of our products, do you tend to look at its nutritional information? -Type= Yes/No
+Obligatoriness:m
+
+Question-2
+*Have you ever not checked or cared about a product s nutritional information because the packaging already made it look a certain way for you? -Type= Yes/No
+Obligatoriness:m
+
+Question-3
+*Do you understand what you are reading when you look at the product s nutritional information? -Type= Yes/No
+Obligatoriness:c(Section 2|Question 1|Answer:Yes)
+
+Question-4
+*Would you say a product s nutritional information influences your choice on buying it? -Type= Yes/No
+Obligatoriness:c(Section 2|Question 1|Answer:Yes)
+
+Question-5
+*What do you usually look for in a product s nutritional values, that would definitely influence your choice to buy that product? -Type= Free-text
+Obligatoriness:o
+
+Section- Healthy Food
+
+Question-1
+*If you were on a diet, would you be more tempted to buy a product which was labeled as "Healthy" on its packaging? -Type= Yes/No
+Obligatoriness:m
+
+Question-2
+*Do you usually know what to buy when you are looking for healthy food? -Type= Yes/No
+Obligatoriness:m
+
+Question-3
+*Do you find healthy food more expensive? -Type= Yes/No
+Obligatoriness:m
+
+Question-4
+(Please write your opinion on the text box below. Be concise and to the point!)
+*What do you view as healthy food? -Type= Free-text
+Obligatoriness:o
+
+Section- Why You Buy Our Products
+
+Question-1
+*What is the order of importance of the following options that will make you continue to use our services? -Type= Sorting
+Obligatoriness:m
+Answers:
+-Better prices
+-Advertising
+-Better location
+-Better attendance
+-Other
+
+Question-2
+(Please select the options which favour your opinion the most)
+*How did you find out about our store? -Type= Multiple-choice
+Obligatoriness:m
+Answers:
+-Through family or a friend
+-TV
+-Street advertising
+-Social Network
+-Other
+
+Question-3
+*How well do you find our prices fair in comparison to our competitors? -Type= Scaling
+Obligatoriness:o
+Answers:
+-Very bad
+-Bad
+-Ok
+-Very well
+-Couldnt be happier
+
+Question-4
+*How well do you think the presentation of our products is easy to follow and well organized? -Type= Scaling
+Obligatoriness:o
+Answers:
+-Very bad
+-Bad
+-Ok
+-Very well
+-Couldnt be happier
+
+Question-5
+*Would you suggest any improvements to our selling techniques? -Type= Free-text
+Obligatoriness:o
+
+Section- Staff Feedback
+
+Question-1
+*Have you ever had an interaction with any of our staff members? -Type= Yes/No
+Obligatoriness:m
+
+Question-2
+*How satisfied were you with our staff members sympathy? -Type= Scaling
+Obligatoriness:c(Section 5|Question 1|Answer:Yes)
+Answers:
+-Very Disappointed
+-Unsatisfied
+-Satisfied
+-Very satisfied
+-Couldnt be happier
+
+Question-3
+*How satisfied were you with the fact that our staff member knew what he was talking about? -Type= Scaling
+Obligatoriness:c(Section 5|Question 1|Answer:Yes)
+Answers:
+-Very Disappointed
+-Unsatisfied
+-Satisfied
+-Very satisfied
+-Couldnt be happier
+
+Question-4
+*Did you buy any product because a staff member helped you and convinced you that was the right product? -Type= Yes/No
+Obligatoriness:c(Section 5|Question 1|Answer:Yes)
+
+Question-5
+*Is there anywhere we can improve when it comes to our staffs skills in approaching a client? -Type= Free-text
+Obligatoriness:c(Section 5|Question 1|Answer:No)
+
+End
+Thank you for your time!

@@ -1,0 +1,91 @@
+@startuml
+
+autonumber
+actor "Sales Manager" as SM
+participant StatisticReportUI as UI <<presentation>>
+participant StatisticReportController as Controller <<application>>
+participant Survey as Survey <<domain>>
+database SurveyRepository as SurveyRepository <<repository>>
+database SurveyTargetRepository as SurveyTargetRepository <<repository>>
+database SurveyAnswersRepository as SurveyAnswersRepository <<repository>>
+
+activate SM
+SM -> UI : Starts the process to get a \nstatistical report regarding a \npreviously set up questionnaire.
+activate UI
+UI -> Controller: create
+activate Controller
+loop this can be done for as many surveys as the Sales Manager wants
+UI -> Controller : allSurveys()
+Controller -> SurveyRepository : allSurveys()
+activate SurveyRepository
+SurveyRepository --> Controller : allSurveys
+deactivate SurveyRepository
+Controller --> UI : surveyDTOList
+Controller -> UI : Asks for ID of the \nsurvey and inputs.
+UI -> Controller : numberCustomersRequestedToAnswer(id)
+Controller -> SurveyTargetRepository : numberCustomersRequestedToAnswer(id)
+activate SurveyTargetRepository
+SurveyTargetRepository --> Controller : number
+deactivate SurveyTargetRepository
+Controller --> UI : number
+UI -> Controller : numberCustomersRequestedToAnswer(id)
+Controller -> SurveyTargetRepository : numberCustomersAnswered(id)
+activate SurveyTargetRepository
+SurveyTargetRepository --> Controller : number
+deactivate SurveyTargetRepository
+Controller --> UI : number
+loop for each section of the survey
+    loop for each question of the section
+        alt if type is SINGLE_CHOICE or SCALING or MULTIPLE_CHOICE (each alternative, not combined responses)
+            UI -> UI : answerWithMultipleAnswers(idSurvey, idSection, questionDTO)
+            activate UI
+            loop for each possibly answer of the question
+                ref over UI
+                    SD_PercentageAnswerQuestion
+                end ref
+            end loop
+            deactivate UI
+        end alt
+        alt if type is MULTIPLE_CHOICE
+            UI -> Controller : combinations(idSurvey, idSection, questionDTO)
+            Controller -> SurveyAnswersRepository : combinations(idSurvey, idSection, questionDTO)
+            activate SurveyAnswersRepository
+            SurveyAnswersRepository --> Controller : list of combinations
+            deactivate SurveyAnswersRepository
+            Controller --> UI : list of combinations
+            loop for each combination
+                ref over UI
+                    SD_PercentageAnswerQuestion
+                end ref
+            end loop
+        end alt
+        alt if type is YES_OR_NO
+            ref over UI
+                SD_PercentageAnswerQuestion
+            end ref
+            note over UI
+            for answer "YES" and "NO"
+            end note
+        end alt
+        alt if type is FREE_TEXT
+            UI -> Controller : numberCustomersAnswerQuestion(idSurvey, idSection, idQuestion)
+            Controller -> SurveyAnswersRepository : numberCustomersAnswerQuestion(idSurvey, idSection, idQuestion)
+            activate SurveyAnswersRepository
+            SurveyAnswersRepository --> Controller : number
+            deactivate SurveyAnswersRepository
+            Controller --> UI : number
+        end alt
+        alt if type is NUMERIC
+            UI -> Controller : averageAnswer(idSurvey, idSection, idQuestion)
+            Controller -> SurveyAnswersRepository : averageAnswer(idSurvey, idSection, idQuestion)
+            activate SurveyAnswersRepository
+            SurveyAnswersRepository --> Controller : number
+            deactivate SurveyAnswersRepository
+            Controller --> UI : number
+        end alt
+    end loop
+end loop
+end loop
+UI -> SM : Success
+
+@enduml
